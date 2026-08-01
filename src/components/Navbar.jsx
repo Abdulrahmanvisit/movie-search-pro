@@ -37,7 +37,13 @@ function Navbar() {
            {isMenuOpen && (
             <ul>
                 <li className='md:hidden flex:hidden flex-col gap-4 px-4 pb-4'>
-
+                    <Link to="/" onClick={() => setIsMenuOpen(false)} className='block hover:text-blue-400 transitions-colors'>Home</Link>
+                </li>
+                <li>
+                    <Link to="/search" onClick={() => setIsMenuOpen(false)} className='block hover:text-blue-400 transitions-colors'>Search</Link>
+                </li>
+                <li>
+                    <Link to="/about" onClick={() => setIsMenuOpen(false)} className='block hover:text-blue-400 transitions-colors'>About</Link>
                 </li>
             </ul>
            )}
