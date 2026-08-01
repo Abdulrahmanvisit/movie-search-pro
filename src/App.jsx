@@ -1,10 +1,7 @@
 import { Routes, Route} from 'react-router-dom'
 import Navbar from './components/Navbar'
+import Home from './pages/Home'
 
-
-function Home() {
-  return <h1>Home Page Placeholder</h1>
-}
 
 function Search() {
   return <h1>Search Page Placeholder</h1>
