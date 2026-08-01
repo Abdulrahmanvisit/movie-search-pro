@@ -13,13 +13,13 @@ function Navbar() {
              {/* DESKTOP MENU — visible on medium screens and up, hidden on mobile */}
         <ul  className='hidden md:flex items-center gap-6'>
             <li>
-                <Link to="/" onClick={() => setIsMenuOpen(false)} className='block hover:text-blue-400 transitions-colors'>Home</Link>
+                <Link to="/"  className='block hover:text-blue-400 transitions-colors'>Home</Link>
             </li>
             <li>
-                <Link to="/search" onClick={() => setIsMenuOpen(false)} className='block hover:text-blue-400 transitions-colors'>Search</Link>
+                <Link to="/search" className='block hover:text-blue-400 transitions-colors'>Search</Link>
             </li>
             <li>
-                <Link to="/about" onClick={() => setIsMenuOpen(false)} className='block hover:text-blue-400 transitions-colors'>About</Link>
+                <Link to="/about" className='block hover:text-blue-400 transitions-colors'>About</Link>
             </li>
         </ul>
 
@@ -35,8 +35,8 @@ function Navbar() {
 
            {/* MOBILE DROPDOWN — only exists in the page when isMenuOpen is true */}
            {isMenuOpen && (
-            <ul>
-                <li className='md:hidden flex:hidden flex-col gap-4 px-4 pb-4'>
+            <ul className="md:hidden flex flex-col gap-4 px-4 pb-4">
+                <li>
                     <Link to="/" onClick={() => setIsMenuOpen(false)} className='block hover:text-blue-400 transitions-colors'>Home</Link>
                 </li>
                 <li>
