@@ -45,13 +45,14 @@ function Search() {
           id="movie-search"
           type="text"
           value={query}
+          autoComplete = "off"
           placeholder="Search for a movies..."
           onChange={(e) => setQuery(e.target.value)}
           className="flex-1 border border-slate-300 rounded-lg px-4 py-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
         <button
           type="submit"
-          autoComplete = "off"
+          disabled={query.trim() === ''}
           className="bg-blue-700 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-lg transition-colors"
         >
           search
@@ -69,7 +70,7 @@ function Search() {
 
 
 
-    <div className="grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-6">
+    <div className="grid grid-cols-[repeat(auto-fill,minmax(140px,1fr))] gap-4 sm:gap-6">
         {movies.map((movie) => (
           <MovieCard
             key={movie.imdbID}
