@@ -1,7 +1,8 @@
 import { useState } from "react";
+import {Link} from "react-router-dom"
 import MovieCard from "../components/MovieCard";
 
-function Search() {
+function Search({watchlist, addToWatchlist, removeFromWatchlist}) {
   const [query, setQuery] = useState("");
   const [movies, setMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -70,18 +71,26 @@ function Search() {
 
 
 
-    <div className="grid grid-cols-[repeat(auto-fill,minmax(140px,1fr))] gap-4 sm:gap-6">
-        {movies.map((movie) => (
-          <MovieCard
-            key={movie.imdbID}
-            title={movie.Title}
-            year={movie.Year}
-            poster={movie.Poster !== 'N/A' ? movie.Poster : 'https://placehold.co/300x445?text=No+Poster'}
+  <div className="grid grid-cols-[repeat(auto-fill,minmax(140px,1fr))] gap-4 sm:gap-6">
+  {movies.map((movie) => {
+    const isSaved = watchlist.some((m) => m.imdbID === movie.imdbID)
 
-            rating="N/A"
-          />
-        ))}
-      </div>
+    return (
+      <Link to={`/movie/${movie.imdbID}`} key={movie.imdbID}>
+        <MovieCard
+          title={movie.Title}
+          year={movie.Year}
+          poster={movie.Poster !== 'N/A' ? movie.Poster : 'https://placehold.co/300x445?text=No+Poster'}
+          rating="N/A"
+          isSaved={isSaved}
+          onToggleWatchlist={() => {
+            isSaved ? removeFromWatchlist(movie.imdbID) : addToWatchlist(movie)
+          }}
+        />
+      </Link>
+    )
+  })}
+</div>
     </section>
   );
 }
