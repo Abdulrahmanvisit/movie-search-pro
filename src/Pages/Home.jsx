@@ -8,7 +8,6 @@ function Home() {
             Discover movies, Explore details, and build your own watchlist.
             </p>
             <Link 
-            
             to="/search"
             className="mt-8 bg-blue-600 hover:bg-blue-700 text-white font-semibold px-3 py-6 rounded-lg transition-colors">Start Exploring</Link>
     </section>

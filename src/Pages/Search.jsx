@@ -1,5 +1,14 @@
 import { useState } from "react";
+import MovieCard from "../components/MovieCard";
 
+const fakeMovies = [
+  { id: 1, rating: "8.7", title: 'The Matrix', year: '1999', poster: 'https://placehold.co/300x445?text=The+Matrix' },
+  { id: 2, rating: "8.5", title: 'Inception', year: '2010', poster: 'https://placehold.co/300x445?text=Inception' },
+  { id: 3, rating: "8.4", title: 'Interstellar', year: '2014', poster: 'https://placehold.co/300x445?text=Interstellar' },
+  { id: 4, rating: "4.5", title: 'The Dark Knight', year: '2008', poster: 'https://placehold.co/300x445?text=Dark+Knight' },
+  { id: 5, rating: "7.5", title: 'Pulp Fiction', year: '1994', poster: 'https://placehold.co/300x445?text=Pulp+Fiction' },
+  { id: 6,  rating: "8.0", title: 'Fight Club', year: '1999', poster: 'https://placehold.co/300x445?text=Fight+Club' },
+]
 function Search() {
   const [query, setQuery] = useState("");
 
@@ -29,34 +38,20 @@ function Search() {
         >
           search
         </button>
-        -
       </form>
 
+
+
       <div className="grid grid-cols sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        <div className="bg-slate-100 rounded-lg h-64 flex items-center justify-center text-slate-500">
-          Movie 1
-        </div>
-        <div className="bg-slate-100 rounded-lg h-64 flex items-center justify-center text-slate-500">
-          Movie 2
-        </div>
-        <div className="bg-slate-100 rounded-lg h-64 flex items-center justify-center text-slate-500">
-          Movie 3
-        </div>
-        <div className="bg-slate-100 rounded-lg h-64 flex items-center justify-center text-slate-500">
-          Movie 4
-        </div>
-        <div className="bg-slate-100 rounded-lg h-64 flex items-center justify-center text-slate-500">
-          Movie 5
-        </div>
-        <div className="bg-slate-100 rounded-lg h-64  flex items-center justify-center text-slate-500">
-          Movie 6
-        </div>
-        <div className="bg-slate-100 rounded-lg h-64  flex items-center justify-center text-slate-500">
-          Movie 7
-        </div>
-        <div className="bg-slate-100 rounded-lg h-64  flex items-center justify-center text-slate-500">
-          Movie 8
-        </div>
+        {fakeMovies.map((movie) => (
+          <MovieCard
+            key={movie.id}
+            title={movie.title}
+            year={movie.year}
+            poster={movie.poster}
+            rating={movie.rating}
+          />
+        ))}
       </div>
     </section>
   );
