@@ -12,6 +12,10 @@ dist
 dist-ssr
 *.local
 
+# Ignore environment variable files to protect secret keys
+.env
+
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
