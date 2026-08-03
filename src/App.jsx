@@ -1,12 +1,14 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, lazy, Suspense } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import Layout from './layouts/Layouts'
-import Home from './pages/Home'
-import Search from './pages/Search'
-import MovieDetails from './pages/MovieDetails'
-import Watchlist from './pages/Watchlist'
-import About from './pages/About'
-import NotFound from './pages/NotFound'
+
+//lazy loaded components
+const Home = lazy(() => import('./pages/Home'))
+const Search =  lazy(() => import('./pages/Search'))
+const MovieDetails = lazy(() => import('./pages/MovieDetails'))
+const Watchlist = lazy(() => import('./pages/Watchlist'))
+const About = lazy(() => import('./pages/About'))
+const NotFound =  lazy(() => import('./pages/NotFound'))
 
 
 
@@ -29,6 +31,7 @@ function App() {
   }
 
   return (
+       <Suspense fallback={<p className="text-center py-20 text-slate-500">Loading page...</p>}>
      <Routes>
       <Route element={<Layout />}>
         <Route index element={<Home />} />
@@ -56,9 +59,7 @@ function App() {
         <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>
-
-      
-    
+     </Suspense>
   )
 }
 

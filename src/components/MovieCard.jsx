@@ -1,3 +1,5 @@
+import {memo} from 'react'
+
 function MovieCard({ title, poster, year, rating, isSaved, onToggleWatchlist }) {
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow cursor-pointer">
@@ -30,4 +32,4 @@ function MovieCard({ title, poster, year, rating, isSaved, onToggleWatchlist }) 
   )
 }
 
-export default MovieCard
+export default memo(MovieCard)
