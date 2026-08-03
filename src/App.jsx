@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Routes, Route } from 'react-router-dom'
-import Navbar from './components/Navbar'
+import Layout from './layouts/Layouts'
 import Home from './pages/Home'
 import Search from './pages/Search'
 import MovieDetails from './pages/MovieDetails'
@@ -29,13 +29,11 @@ function App() {
   }
 
   return (
-    <div>
-      <Navbar />
-
-      <Routes>
-        <Route path="/" element={<Home />} />
+     <Routes>
+      <Route element={<Layout />}>
+        <Route index element={<Home />} />
         <Route
-          path="/search"
+          path="search"
           element={
             <Search
               watchlist={watchlist}
@@ -43,10 +41,10 @@ function App() {
               removeFromWatchlist={removeFromWatchlist}
             />
           }
-        />
-        <Route path="/movie/:id" element={<MovieDetails />} />
+           />
+        <Route path="movie/:id" element={<MovieDetails />} />
         <Route
-          path="/watchlist"
+          path="watchlist"
           element={
             <Watchlist
               watchlist={watchlist}
@@ -54,10 +52,13 @@ function App() {
             />
           }
         />
-        <Route path="/about" element={<About />} />
+        <Route path="about" element={<About />} />
         <Route path="*" element={<NotFound />} />
-      </Routes>
-    </div>
+      </Route>
+    </Routes>
+
+      
+    
   )
 }
 
