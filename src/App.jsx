@@ -6,6 +6,8 @@ import Search from './pages/Search'
 import MovieDetails from './pages/MovieDetails'
 import Watchlist from './pages/Watchlist'
 import About from './pages/About'
+import NotFound from './pages/NotFound'
+
 
 
 function App() {
@@ -53,6 +55,7 @@ function App() {
           }
         />
         <Route path="/about" element={<About />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
   )
