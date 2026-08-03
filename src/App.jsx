@@ -5,10 +5,8 @@ import Home from './pages/Home'
 import Search from './pages/Search'
 import MovieDetails from './pages/MovieDetails'
 import Watchlist from './pages/Watchlist'
+import About from './pages/About'
 
-function About() {
-  return <h1>Return About Page Placeholder.</h1>
-}
 
 function App() {
   const [watchlist, setWatchlist] = useState(() => {
