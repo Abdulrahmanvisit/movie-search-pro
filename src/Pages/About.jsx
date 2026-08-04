@@ -1,7 +1,12 @@
+// Provides an overview of the application, including its purpose
+// and the main technologies used to build it.
+
 function About() {
   return (
     <section className="max-w-2xl mx-auto px-4 py-16">
-      <h1 className="text-3xl font-bold text-slate-900">About Movie Explorer Pro</h1>
+      <h1 className="text-3xl font-bold text-slate-900">
+        About Movie Explorer Pro
+      </h1>
 
       <p className="mt-4 text-slate-600 leading-relaxed">
         Movie Explorer Pro is a movie discovery application that lets you search
@@ -19,7 +24,7 @@ function About() {
         <li>Local Storage</li>
       </ul>
     </section>
-  )
+  );
 }
 
-export default About
+export default About;
