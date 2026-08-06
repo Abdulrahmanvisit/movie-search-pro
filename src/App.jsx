@@ -3,12 +3,12 @@ import { Routes, Route } from "react-router-dom";
 import Layout from "./layouts/Layouts";
 
 //lazy loaded components
-const Home = lazy(() => import("./pages/Home"));
-const Search = lazy(() => import("./pages/Search"));
-const MovieDetails = lazy(() => import("./pages/MovieDetails"));
-const Watchlist = lazy(() => import("./pages/Watchlist"));
-const About = lazy(() => import("./pages/About"));
-const NotFound = lazy(() => import("./pages/NotFound"));
+const Home = lazy(() => import("./Pages/Home"));
+const Search = lazy(() => import("./Pages/Search"));
+const MovieDetails = lazy(() => import("./Pages/MovieDetails"));
+const Watchlist = lazy(() => import("./Pages/Watchlist"));
+const About = lazy(() => import("./Pages/About"));
+const NotFound = lazy(() => import("./Pages/NotFound"));
 
 //manages the watchlist state with localStorage persistence
 function App() {

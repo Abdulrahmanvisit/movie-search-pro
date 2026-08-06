@@ -1,44 +1,37 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import MovieCard from "../components/MovieCard";
+import useFetch from "../hooks/useFetch";
 
-// Allows users to search for movies using the OMDb API.
-// Search results are displayed as movie cards, and users can
-// add or remove movies from their watchlist.
 function Search({ watchlist, addToWatchlist, removeFromWatchlist }) {
   const [query, setQuery] = useState("");
-  const [movies, setMovies] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [searchUrl, setSearchUrl] = useState("");
 
-  const handleSearch = async (e) => {
+  const { data, isLoading, error } = useFetch(searchUrl);
+
+  const movies = data?.Search ?? [];
+
+  const handleSearch = (e) => {
     e.preventDefault();
 
-    setIsLoading(true);
-    setError("");
-    setMovies([]);
+    const trimmedQuery = query.trim();
 
-    try {
-      const apikey = import.meta.env.VITE_OMDB_API_KEY;
-      const response = await fetch(
-        `https://www.omdbapi.com/?apikey=${apikey}&s=${encodeURIComponent(query)}`,
-      );
-      const data = await response.json();
+    if (!trimmedQuery) return;
 
-      if (data.Response === "True") {
-        setMovies(data.Search);
-      } else {
-        setError(data.Error);
-      }
-    } catch (err) {
-      console.error(err);
-      setError("something went wrong. please try again.");
-    } finally {
-      setIsLoading(false);
-    }
+    const apikey = import.meta.env.VITE_OMDB_API_KEY;
+
+    setSearchUrl(
+      `https://www.omdbapi.com/?apikey=${apikey}&s=${encodeURIComponent(
+        trimmedQuery
+      )}`
+    );
   };
+
   return (
     <section className="max-w-6xl mx-auto px-4 py-10">
+      <h1 className="sr-only">Search Movies</h1>
+
+      {/* Search Form */}
       <form onSubmit={handleSearch} className="flex gap-3 mb-10">
         <label htmlFor="movie-search" className="sr-only">
           Search for a movie
@@ -47,31 +40,59 @@ function Search({ watchlist, addToWatchlist, removeFromWatchlist }) {
         <input
           id="movie-search"
           type="text"
-          value={query}
           autoComplete="off"
-          placeholder="Search for a movies..."
+          value={query}
+          placeholder="Search for a movie..."
           onChange={(e) => setQuery(e.target.value)}
-          className="flex-1 border border-slate-300 rounded-lg px-4 py-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="flex-1 min-w-0 rounded-lg border border-slate-300 px-4 py-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
+
         <button
           type="submit"
           disabled={query.trim() === ""}
-          className="bg-blue-700 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-lg transition-colors"
+          className={`rounded-lg px-6 py-3 font-semibold text-white transition duration-200 ease-in-out ${
+            query.trim() === ""
+              ? "bg-slate-300 text-slate-500 cursor-not-allowed hover:bg-slate-300"
+              : "bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 active:bg-blue-800"
+          }`}
         >
-          search
+          Search
         </button>
       </form>
 
-      {isLoading && <p className="text-center text-slate-500">Loading...</p>}
+      {/* Loading State */}
+      {isLoading && (
+        <p className="py-10 text-center text-slate-500">
+          Loading...
+        </p>
+      )}
 
-      {error && <p className="text-center text-red-500">{error}</p>}
+      {/* Error State */}
+      {error && (
+        <p className="py-10 text-center text-red-500">
+          {error}
+        </p>
+      )}
 
+      {/* No Results */}
+      {!isLoading && !error && data && movies.length === 0 && (
+        <p className="py-10 text-center text-slate-500">
+          No movies found.
+        </p>
+      )}
+
+      {/* Movie Grid */}
       <div className="grid grid-cols-[repeat(auto-fill,minmax(140px,1fr))] gap-4 sm:gap-6">
         {movies.map((movie) => {
-          const isSaved = watchlist.some((m) => m.imdbID === movie.imdbID);
+          const isSaved = watchlist.some(
+            (item) => item.imdbID === movie.imdbID
+          );
 
           return (
-            <Link to={`/movie/${movie.imdbID}`} key={movie.imdbID}>
+            <Link
+              key={movie.imdbID}
+              to={`/movie/${movie.imdbID}`}
+            >
               <MovieCard
                 title={movie.Title}
                 year={movie.Year}
@@ -83,9 +104,11 @@ function Search({ watchlist, addToWatchlist, removeFromWatchlist }) {
                 rating="N/A"
                 isSaved={isSaved}
                 onToggleWatchlist={() => {
-                  isSaved
-                    ? removeFromWatchlist(movie.imdbID)
-                    : addToWatchlist(movie);
+                  if (isSaved) {
+                    removeFromWatchlist(movie.imdbID);
+                  } else {
+                    addToWatchlist(movie);
+                  }
                 }}
               />
             </Link>
